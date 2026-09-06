@@ -1,0 +1,120 @@
+CREATE TABLE public.profiles (
+    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    role user_role NOT NULL,
+    distributor_id UUID,
+    school_id UUID,
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    document_type doc_type DEFAULT 'CC',
+    document_number TEXT,
+    phone TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE public.distributors (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE RESTRICT,
+    business_name TEXT NOT NULL,
+    trade_name TEXT NOT NULL,
+    nit TEXT NOT NULL UNIQUE,
+    contact_email TEXT NOT NULL,
+    contact_phone TEXT,
+    address TEXT,
+    city TEXT NOT NULL,
+    department TEXT NOT NULL,
+    is_educational_corporation BOOLEAN DEFAULT FALSE,
+    status status_type DEFAULT 'active',
+    license_duration_months INT CHECK (license_duration_months IN (3, 6, 12)),
+    license_start_date DATE NOT NULL,
+    license_end_date DATE NOT NULL,
+    max_authorized_students INT DEFAULT 0,
+    branding_config JSONB DEFAULT '{
+      "logo_url": null,
+      "slogan": null,
+      "primary_color": "#1A56DB",
+      "secondary_color": "#7E3AF2",
+      "login_bg_url": null,
+      "custom_subdomain": null,
+      "pdf_footer_text": null,
+      "contact_website": null
+    }'::jsonb,
+    ad_banner_config JSONB DEFAULT '{
+      "enabled": false,
+      "banner_url": null,
+      "target_url": null,
+      "start_date": null,
+      "end_date": null,
+      "target_roles": ["student", "teacher"]
+    }'::jsonb,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    CONSTRAINT chk_license_dates CHECK (license_end_date >= license_start_date)
+);
+
+CREATE TABLE public.schools (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    distributor_id UUID NOT NULL REFERENCES public.distributors(id) ON DELETE CASCADE,
+    rector_user_id UUID UNIQUE REFERENCES auth.users(id) ON DELETE SET NULL,
+    name TEXT NOT NULL,
+    dane_code TEXT,
+    nit TEXT,
+    rector_name TEXT NOT NULL,
+    rector_email TEXT NOT NULL,
+    rector_phone TEXT,
+    address TEXT,
+    city TEXT NOT NULL,
+    department TEXT NOT NULL,
+    status status_type DEFAULT 'active',
+    contracted_price_per_student NUMERIC(12, 2) DEFAULT 0.00,
+    total_negotiated_amount NUMERIC(12, 2) DEFAULT 0.00,
+    payment_status payment_status DEFAULT 'pending',
+    balance_due NUMERIC(12, 2) DEFAULT 0.00,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE public.teachers (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+    distributor_id UUID NOT NULL REFERENCES public.distributors(id) ON DELETE CASCADE,
+    school_id UUID NOT NULL REFERENCES public.schools(id) ON DELETE CASCADE,
+    full_name TEXT NOT NULL,
+    document_type doc_type DEFAULT 'CC',
+    document_number TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    phone TEXT,
+    is_authorized BOOLEAN DEFAULT TRUE,
+    status status_type DEFAULT 'active',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE public.students (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+    distributor_id UUID NOT NULL REFERENCES public.distributors(id) ON DELETE CASCADE,
+    school_id UUID NOT NULL REFERENCES public.schools(id) ON DELETE CASCADE,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    full_name TEXT GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED,
+    document_type doc_type NOT NULL,
+    document_number TEXT NOT NULL,
+    birth_date DATE NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    phone TEXT,
+    grade TEXT NOT NULL,
+    group_name TEXT NOT NULL,
+    academic_year INT NOT NULL DEFAULT EXTRACT(YEAR FROM CURRENT_DATE),
+    guardian_name TEXT,
+    guardian_relationship TEXT,
+    guardian_email TEXT,
+    guardian_phone TEXT,
+    habeas_data_accepted BOOLEAN NOT NULL DEFAULT FALSE,
+    habeas_data_accepted_at TIMESTAMPTZ,
+    habeas_data_ip_address TEXT,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    CONSTRAINT uq_student_document_per_school UNIQUE (school_id, document_type, document_number)
+);
