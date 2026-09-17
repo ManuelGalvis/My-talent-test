@@ -1,0 +1,303 @@
+{
+  "_metadata": {
+    "instrumento": "Test de Orientación Vocacional C.H.A.S.I.D.E.",
+    "version_config": "2.0",
+    "base_teorica": "Teoría de tipos de personalidad y ambientes ocupacionales de John L. Holland (RIASEC)",
+    "total_items": 98,
+    "distribucion_items": {
+      "intereses": 70,
+      "aptitudes": 28,
+      "intereses_por_area": 10,
+      "aptitudes_por_area": 4
+    },
+    "fuentes": {
+      "matriz_tabulacion": "Hoja de aplicación 'Test de Orientación Vocacional CHASIDE' (cuadro de tabulación de doble bloque C-H-A-S-I-D-E). FUENTE AUTORITATIVA.",
+      "marco_conceptual": "Manual CHASIDE (teoría de Holland, aptitudes, validación Ecuador)"
+    },
+    "validacion_matriz": {
+      "items_totales": 98,
+      "items_unicos": 98,
+      "duplicados": 0,
+      "faltantes": 0,
+      "cobertura_rango_1_98": "completa",
+      "estado": "VERIFICADA"
+    },
+    "confiabilidad": {
+      "alfa_cronbach_muestra_original": 0.92,
+      "validacion_ecuador": {
+        "alfa_intereses": 0.824,
+        "alfa_aptitudes": 0.905,
+        "alfa_total": 0.935,
+        "correlacion_spearman_intereses_aptitudes": 0.896,
+        "muestra": 350,
+        "rango_edad": "16-17 años"
+      },
+      "umbral_validez_referencia": 0.70
+    }
+  },
+
+  "instrucciones_aplicacion": [
+    "Lee atentamente cada pregunta y contesta sí o no, señalándolo con un aspa.",
+    "Encierra además con un círculo el número de la pregunta que contestes afirmativamente.",
+    "Responde a todas las preguntas sin omitir ninguna.",
+    "Para contestar cada pregunta, piensa en el tipo de profesión o en la actitud que implica."
+  ],
+
+  "holland_theory": {
+    "realista": {
+      "codigo": "R",
+      "descripcion": "Prefieren trabajar con objetos o máquinas. En general son personas prácticas y persistentes, con capacidades mecánicas y que prefieren trabajar en el exterior.",
+      "descripcion_ampliada": "Prefiere actividades que requieren la manipulación de objetos, herramientas, máquinas y animales (electricista, mecánico).",
+      "aptitudes_hexagono": ["Destreza manual", "Mecánica"]
+    },
+    "investigador": {
+      "codigo": "I",
+      "descripcion": "Prefieren trabajar con ideas. En general son analíticas y reservadas, con capacidades científicas y matemáticas. Por ejemplo, realizan investigaciones o pueden trabajar en laboratorios.",
+      "descripcion_ampliada": "Prefiere actividades que conducen a la observación y a la investigación de fenómenos físicos, biológicos y culturales para comprenderlos y controlarlos (biólogo, geólogo, físico).",
+      "aptitudes_hexagono": ["Científica", "Visualización"]
+    },
+    "artistico": {
+      "codigo": "A",
+      "descripcion": "Prefieren trabajar con ideas creativas, así como con las distintas formas de expresarlas y darlas a conocer a los demás. En general son personas emotivas y abiertas, con capacidades para la composición musical, la actuación, la escritura o el arte visual.",
+      "descripcion_ampliada": "Prefiere actividades que implican una manipulación de materiales físicos, verbales y humanos para crear formas o productos (escritor, decorador, actor).",
+      "aptitudes_hexagono": ["Uso del Lenguaje", "Creatividad"]
+    },
+    "social": {
+      "codigo": "S",
+      "descripcion": "Prefieren trabajar e interactuar con personas, en general. Son personas serviciales y amistosas, que prefieren trabajar en áreas que les permitan aconsejar, orientar y enseñar.",
+      "descripcion_ampliada": "Prefiere actividades relacionadas con la ayuda, cuidado, formación y orientación de otros (profesor, psicólogo, orientador).",
+      "aptitudes_hexagono": ["Conocer gente", "Ayudar a otros"]
+    },
+    "emprendedor": {
+      "codigo": "E",
+      "descripcion": "Estas personas prefieren conducir o dirigir personas. En general son sociables y audaces. Muestran capacidades de liderazgo y comunicación.",
+      "descripcion_ampliada": "Prefiere actividades que suponen la manipulación de otros para conseguir objetivos organizativos y ganancias económicas (vendedor, ejecutivo).",
+      "aptitudes_hexagono": ["Liderazgo y Administración", "Gestión de proyectos"]
+    },
+    "convencional": {
+      "codigo": "C",
+      "descripcion": "Prefieren organizar y manejar datos, trabajando en ambientes en donde se requiera la sistematización de la información. Por lo general son personas metódicas y prácticas.",
+      "descripcion_ampliada": "Prefiere actividades que impliquen una sistemática, ordenada manipulación de datos en registro y archivos, organización de datos numéricos, trabajar con máquinas de oficina y de procesamiento de textos (cajero de banco, bibliotecario).",
+      "aptitudes_hexagono": ["Convencional", "Manejo de datos"]
+    },
+    "relaciones_hexagono": {
+      "adyacentes": "Los intereses adyacentes (ej. realista e investigativo) están más relacionados entre sí.",
+      "alternativos": "Los intereses alternativos (ej. realista y artístico) están relacionados en grado intermedio.",
+      "opuestos": "Los intereses opuestos (ej. realista y social) son los menos relacionados."
+    }
+  },
+
+  "aptitudes_list": [
+    { "nombre": "Coordinación visomotriz", "definicion": "Habilidad para movimientos controlados que requieren mucha precisión y coordinación de mano-ojo." },
+    { "nombre": "Social", "definicion": "Facilidad para tratar con personas, escucharlas y ayudarlas." },
+    { "nombre": "Musical", "definicion": "Facilidad para percibir tonos y ritmos, componer música y memorizar notas." },
+    { "nombre": "Numérica", "definicion": "Capacidad para trabajar con números, agilidad para realizar operaciones con ellos." },
+    { "nombre": "Abstracta o científica", "definicion": "Para entender principios y teorías que no están inscritos en la naturaleza." },
+    { "nombre": "Espacial", "definicion": "Destreza para organizar, transformar y orientar objetos en un espacio determinado." },
+    { "nombre": "Verbal", "definicion": "Comprender palabras, oraciones y textos, y realizar estructuras apropiadas mediante la lógica." },
+    { "nombre": "Mecánica", "definicion": "Capacidad para manejar objetos y para comprender mecanismos." },
+    { "nombre": "Artística-plástica", "definicion": "Habilidad para aplicar colores, apreciar formas estéticas y desarrollar formas." },
+    { "nombre": "Ejecutiva", "definicion": "Capacidad para dominar situaciones sociales, planificar y dirigir grupos de trabajo." },
+    { "nombre": "Organización", "definicion": "Habilidad para clasificar, ordenar y sistematizar una fuente de información." },
+    { "nombre": "Persuasiva", "definicion": "Habilidad para argumentar, convencer y contra argumentar." }
+  ],
+
+  "chaside_areas": {
+    "C": {
+      "letra": "C",
+      "nombre_completo": "Administrativas y Contables",
+      "nombre_area_hoja": "Área Administrativa",
+      "nombre_extendido": "Ciencias Exactas, Administrativas y Contables",
+      "matriz_intereses": [1, 12, 20, 53, 64, 71, 78, 85, 91, 98],
+      "matriz_aptitudes": [2, 15, 46, 51],
+      "rasgos_intereses": ["Organización", "Supervisión", "Orden", "Análisis y síntesis", "Colaboración", "Cálculo"],
+      "rasgos_aptitudes": ["Persuasivo", "Objetivo", "Práctico", "Tolerante", "Responsable", "Ambicioso"]
+    },
+    "H": {
+      "letra": "H",
+      "nombre_completo": "Humanísticas, Ciencias Jurídicas y Ciencias Sociales",
+      "nombre_area_hoja": "Área de Humanidades y Ciencias Sociales y Jurídicas",
+      "matriz_intereses": [9, 25, 34, 41, 56, 67, 74, 80, 89, 95],
+      "matriz_aptitudes": [30, 63, 72, 86],
+      "rasgos_intereses": ["Precisión Verbal", "Organización", "Relación de hechos", "Lingüística", "Orden", "Justicia"],
+      "rasgos_aptitudes": ["Responsable", "Justo", "Conciliador", "Persuasivo", "Sagaz", "Imaginativo"]
+    },
+    "A": {
+      "letra": "A",
+      "nombre_completo": "Artísticas",
+      "nombre_area_hoja": "Área Artística",
+      "matriz_intereses": [3, 11, 21, 28, 36, 45, 50, 57, 81, 96],
+      "matriz_aptitudes": [22, 39, 76, 82],
+      "rasgos_intereses": ["Estético", "Armónico", "Manual", "Visual", "Auditivo"],
+      "rasgos_aptitudes": ["Sensible", "Imaginativo", "Creativo", "Detallista", "Innovador", "Intuitivo"]
+    },
+    "S": {
+      "letra": "S",
+      "nombre_completo": "Ciencias de la Salud y Medicina",
+      "nombre_area_hoja": "Área de Ciencias de la Salud",
+      "matriz_intereses": [8, 16, 23, 33, 44, 52, 62, 70, 87, 92],
+      "matriz_aptitudes": [4, 29, 40, 69],
+      "rasgos_intereses": ["Asistir", "Investigar", "Precisión", "Percepción", "Análisis", "Ayudar"],
+      "rasgos_aptitudes": ["Altruista", "Solidario", "Paciente", "Comprensivo", "Respetuoso", "Persuasivo"]
+    },
+    "I": {
+      "letra": "I",
+      "nombre_completo": "Ingenierías, Carreras Técnicas y Computación",
+      "nombre_area_hoja": "Área de Enseñanzas Técnicas",
+      "matriz_intereses": [6, 19, 27, 38, 47, 54, 60, 75, 83, 97],
+      "matriz_aptitudes": [10, 26, 59, 90],
+      "rasgos_intereses": ["Cálculo", "Científico", "Manual", "Exactitud", "Planificar"],
+      "rasgos_aptitudes": ["Preciso", "Práctico", "Crítico", "Analítico", "Rígido"]
+    },
+    "D": {
+      "letra": "D",
+      "nombre_completo": "Defensa y Seguridad",
+      "nombre_area_hoja": "Área de Defensa y Seguridad",
+      "matriz_intereses": [5, 14, 24, 31, 37, 48, 58, 65, 73, 84],
+      "matriz_aptitudes": [13, 18, 43, 66],
+      "rasgos_intereses": ["Justicia", "Equidad", "Colaboración", "Espíritu de equipo", "Liderazgo"],
+      "rasgos_aptitudes": ["Arriesgado", "Solidario", "Valiente", "Agresivo", "Persuasivo"]
+    },
+    "E": {
+      "letra": "E",
+      "nombre_completo": "Ciencias Agrarias, de la Naturaleza, Zoológicas y Biológicas",
+      "nombre_area_hoja": "Área de Ciencias Experimentales",
+      "nombre_extendido": "Ciencias Exactas y Agrarias",
+      "matriz_intereses": [17, 32, 35, 42, 49, 61, 68, 77, 88, 93],
+      "matriz_aptitudes": [7, 55, 79, 94],
+      "rasgos_intereses": ["Investigación", "Orden", "Organización", "Análisis y Síntesis", "Cálculo numérico", "Clasificar"],
+      "rasgos_aptitudes": ["Metódico", "Analítico", "Observador", "Introvertido", "Paciente", "Seguro"]
+    }
+  },
+
+  "items": [
+    { "id": 1,  "texto": "¿Aceptarías trabajar escribiendo artículos en la sección económica de un diario?", "area": "C", "dimension": "intereses" },
+    { "id": 2,  "texto": "¿Te ofrecerías para organizar la despedida de soltero de uno de tus amigos?", "area": "C", "dimension": "aptitudes" },
+    { "id": 3,  "texto": "¿Te gustaría dirigir/crear un proyecto de urbanización en tu provincia?", "area": "A", "dimension": "intereses" },
+    { "id": 4,  "texto": "¿A una frustración siempre opones un pensamiento positivo?", "area": "S", "dimension": "aptitudes" },
+    { "id": 5,  "texto": "¿Te dedicarías a socorrer a personas accidentadas o atacadas por asaltantes?", "area": "D", "dimension": "intereses" },
+    { "id": 6,  "texto": "¿Cuando eras chico, te interesaba saber cómo estaban construidos tus juguetes?", "area": "I", "dimension": "intereses" },
+    { "id": 7,  "texto": "¿Te interesan más los misterios de la naturaleza que los secretos de la tecnología?", "area": "E", "dimension": "aptitudes" },
+    { "id": 8,  "texto": "¿Escuchas atentamente los problemas que te plantean tus amigos?", "area": "S", "dimension": "intereses" },
+    { "id": 9,  "texto": "¿Te ofrecerías para explicar a tus compañeros un determinado tema que ellos no entendieron?", "area": "H", "dimension": "intereses" },
+    { "id": 10, "texto": "¿Eres exigente y crítico con tu equipo de trabajo?", "area": "I", "dimension": "aptitudes" },
+    { "id": 11, "texto": "¿Te atrae armar rompecabezas o puzzles?", "area": "A", "dimension": "intereses" },
+    { "id": 12, "texto": "¿Te gustaría conocer la diferencia entre macroeconomía y microeconomía?", "area": "C", "dimension": "intereses" },
+    { "id": 13, "texto": "¿Usar uniforme te hace sentir distinto, importante?", "area": "D", "dimension": "aptitudes" },
+    { "id": 14, "texto": "¿Participarías como profesional en un espectáculo de acrobacia aérea?", "area": "D", "dimension": "intereses" },
+    { "id": 15, "texto": "¿Organizas tu dinero de manera que te alcance hasta el próximo cobro?", "area": "C", "dimension": "aptitudes" },
+    { "id": 16, "texto": "¿Convences fácilmente a otras personas sobre la validez de tus argumentos?", "area": "S", "dimension": "intereses" },
+    { "id": 17, "texto": "¿Te gustaría estar informado sobre los nuevos descubrimientos que se están realizando sobre el origen del Universo?", "area": "E", "dimension": "intereses" },
+    { "id": 18, "texto": "¿Ante una situación de emergencia actúas rápidamente?", "area": "D", "dimension": "aptitudes" },
+    { "id": 19, "texto": "¿Cuando tienes que resolver un problema matemático, perseveras hasta encontrar la solución?", "area": "I", "dimension": "intereses" },
+    { "id": 20, "texto": "¿Si te convocara tu club preferido para planificar, organizar y dirigir un campo de deportes, aceptarías?", "area": "C", "dimension": "intereses" },
+    { "id": 21, "texto": "¿Eres el que pone un toque de alegría en las fiestas?", "area": "A", "dimension": "intereses" },
+    { "id": 22, "texto": "¿Crees que los detalles son tan importantes como el todo?", "area": "A", "dimension": "aptitudes" },
+    { "id": 23, "texto": "¿Te sentirías a gusto trabajando en un ámbito hospitalario?", "area": "S", "dimension": "intereses" },
+    { "id": 24, "texto": "¿Te gustaría participar para mantener el orden ante grandes desórdenes y cataclismos?", "area": "D", "dimension": "intereses" },
+    { "id": 25, "texto": "¿Pasarías varias horas leyendo algún libro de tu interés?", "area": "H", "dimension": "intereses" },
+    { "id": 26, "texto": "¿Planificas detalladamente tus trabajos antes de empezar?", "area": "I", "dimension": "aptitudes" },
+    { "id": 27, "texto": "¿Entablas una relación casi personal con tu ordenador?", "area": "I", "dimension": "intereses" },
+    { "id": 28, "texto": "¿Disfrutas modelando con arcilla?", "area": "A", "dimension": "intereses" },
+    { "id": 29, "texto": "¿Ayudas habitualmente a los no videntes (a quien lo necesite) a cruzar la calle?", "area": "S", "dimension": "aptitudes" },
+    { "id": 30, "texto": "¿Consideras importante que desde la educación secundaria se fomente la actitud crítica y la participación activa?", "area": "H", "dimension": "aptitudes" },
+    { "id": 31, "texto": "¿Aceptarías que las mujeres formaran parte de las fuerzas armadas bajo las mismas normas que los hombres?", "area": "D", "dimension": "intereses" },
+    { "id": 32, "texto": "¿Te gustaría crear nuevas técnicas para descubrir las patologías de algunas enfermedades a través del microscopio?", "area": "E", "dimension": "intereses" },
+    { "id": 33, "texto": "¿Participarías en una campaña de prevención contra la enfermedad como el sida?", "area": "S", "dimension": "intereses" },
+    { "id": 34, "texto": "¿Te interesan los temas relacionados al pasado y a la evolución del hombre?", "area": "H", "dimension": "intereses" },
+    { "id": 35, "texto": "¿Te incluirías en un proyecto de investigación de los movimientos sísmicos y sus consecuencias?", "area": "E", "dimension": "intereses" },
+    { "id": 36, "texto": "¿Fuera de los horarios escolares, dedicas algún día de la semana a la realización de actividades corporales?", "area": "A", "dimension": "intereses" },
+    { "id": 37, "texto": "¿Te interesan las actividades de mucha acción y de reacción rápida en situaciones imprevistas y de algún peligro?", "area": "D", "dimension": "intereses" },
+    { "id": 38, "texto": "¿Te ofrecerías para colaborar como voluntario en los gabinetes espaciales de la NASA?", "area": "I", "dimension": "intereses" },
+    { "id": 39, "texto": "¿Te gusta más el trabajo manual que el trabajo intelectual?", "area": "A", "dimension": "aptitudes" },
+    { "id": 40, "texto": "¿Estarías dispuesto a renunciar a un momento placentero para ofrecer tu servicio como profesional (ayudando)?", "area": "S", "dimension": "aptitudes" },
+    { "id": 41, "texto": "¿Participarías de una investigación sobre la violencia en el fútbol?", "area": "H", "dimension": "intereses" },
+    { "id": 42, "texto": "¿Te gustaría trabajar en un laboratorio mientras estudias?", "area": "E", "dimension": "intereses" },
+    { "id": 43, "texto": "¿Arriesgarías tu vida para salvar la vida de otro que no conoces?", "area": "D", "dimension": "aptitudes" },
+    { "id": 44, "texto": "¿Te agradaría hacer un curso de primeros auxilios?", "area": "S", "dimension": "intereses" },
+    { "id": 45, "texto": "¿Tolerarías empezar tantas veces como fuere necesario hasta obtener el logro deseado?", "area": "A", "dimension": "intereses" },
+    { "id": 46, "texto": "¿Distribuyes tus horarios del día adecuadamente para poder hacer todo lo planeado?", "area": "C", "dimension": "aptitudes" },
+    { "id": 47, "texto": "¿Harías un curso para aprender a fabricar los instrumentos y/o piezas de las máquinas o aparatos con que trabajas?", "area": "I", "dimension": "intereses" },
+    { "id": 48, "texto": "¿Elegirías una profesión en la que tuvieras que estar algunos meses alejado de tu familia, por ejemplo el marino?", "area": "D", "dimension": "intereses" },
+    { "id": 49, "texto": "¿Te radicarías en una zona agrícola-ganadera para desarrollar tus actividades como profesional?", "area": "E", "dimension": "intereses" },
+    { "id": 50, "texto": "¿Cuando estás en un grupo trabajando, te entusiasma producir ideas originales y que sean tenidas en cuenta?", "area": "A", "dimension": "intereses" },
+    { "id": 51, "texto": "¿Te resulta fácil coordinar un grupo de trabajo?", "area": "C", "dimension": "aptitudes" },
+    { "id": 52, "texto": "¿Te resultó interesante el estudio de las ciencias biológicas?", "area": "S", "dimension": "intereses" },
+    { "id": 53, "texto": "¿Si una gran empresa solicita un profesional como gerente de comercialización, te sentirías a gusto desempeñando ese rol?", "area": "C", "dimension": "intereses" },
+    { "id": 54, "texto": "¿Te incluirías en un proyecto nacional de desarrollo de la principal fuente de recursos de tu provincia?", "area": "I", "dimension": "intereses" },
+    { "id": 55, "texto": "¿Tienes interés por saber cuáles son las causas que determinan ciertos fenómenos, aunque saberlo no altere tu vida?", "area": "E", "dimension": "aptitudes" },
+    { "id": 56, "texto": "¿Descubriste algún filósofo o escritor que haya expresado tus mismas ideas con antelación?", "area": "H", "dimension": "intereses" },
+    { "id": 57, "texto": "¿Desearías que te regalen algún instrumento musical para tu cumpleaños?", "area": "A", "dimension": "intereses" },
+    { "id": 58, "texto": "¿Aceptarías colaborar con el cumplimiento de las normas en lugares públicos?", "area": "D", "dimension": "intereses" },
+    { "id": 59, "texto": "¿Crees que tus ideas son importantes, y haces todo lo posible para ponerlas en práctica?", "area": "I", "dimension": "aptitudes" },
+    { "id": 60, "texto": "¿Cuando se descompone un artefacto en tu casa, te dispones prontamente a repararlo?", "area": "I", "dimension": "intereses" },
+    { "id": 61, "texto": "¿Formarías parte de un equipo de trabajo orientado a la preservación de la flora y la fauna en extinción?", "area": "E", "dimension": "intereses" },
+    { "id": 62, "texto": "¿Leerías revistas relacionadas con los últimos avances científicos y tecnológicos en el área de la salud?", "area": "S", "dimension": "intereses" },
+    { "id": 63, "texto": "¿Preservar las raíces culturales de nuestro país, te parece importante y necesario?", "area": "H", "dimension": "aptitudes" },
+    { "id": 64, "texto": "¿Te gustaría realizar una investigación que contribuyera a hacer más justa la distribución de la riqueza?", "area": "C", "dimension": "intereses" },
+    { "id": 65, "texto": "¿Te gustaría realizar tareas auxiliares en una nave, como por ejemplo izado y arriado de velas, pintura y conservación del casco, arreglo de averías, conservación de motores, etc.?", "area": "D", "dimension": "intereses" },
+    { "id": 66, "texto": "¿Crees que un país debe poseer la más alta tecnología armamentista, a cualquier precio?", "area": "D", "dimension": "aptitudes" },
+    { "id": 67, "texto": "¿La libertad y la justicia son valores fundamentales en tu vida?", "area": "H", "dimension": "intereses" },
+    { "id": 68, "texto": "¿Aceptarías hacer una práctica pagada en una industria de productos alimenticios en el sector de control de calidad?", "area": "E", "dimension": "intereses" },
+    { "id": 69, "texto": "¿Consideras que la salud pública debe ser prioritaria, gratuita y eficiente para todos?", "area": "S", "dimension": "aptitudes" },
+    { "id": 70, "texto": "¿Te interesaría investigar sobre alguna nueva vacuna?", "area": "S", "dimension": "intereses" },
+    { "id": 71, "texto": "¿En un equipo de trabajo, prefieres el rol de coordinador?", "area": "C", "dimension": "intereses" },
+    { "id": 72, "texto": "¿En una discusión entre amigos, te ofreces como mediador?", "area": "H", "dimension": "aptitudes" },
+    { "id": 73, "texto": "¿Estás de acuerdo con la formación de un cuerpo de soldados profesionales?", "area": "D", "dimension": "intereses" },
+    { "id": 74, "texto": "¿Lucharías por una causa justa hasta las últimas consecuencias?", "area": "H", "dimension": "intereses" },
+    { "id": 75, "texto": "¿Te gustaría investigar científicamente sobre cultivos agrícolas?", "area": "I", "dimension": "intereses" },
+    { "id": 76, "texto": "¿Harías un nuevo diseño de una prenda pasada de moda, ante una reunión?", "area": "A", "dimension": "aptitudes" },
+    { "id": 77, "texto": "¿Visitarías un observatorio astronómico para conocer en acción el funcionamiento de los aparatos?", "area": "E", "dimension": "intereses" },
+    { "id": 78, "texto": "¿Dirigirías el área de importación y exportación de una empresa?", "area": "C", "dimension": "intereses" },
+    { "id": 79, "texto": "¿Te cohíbes/inhibes -cortas- al entrar a un lugar nuevo con gente desconocida?", "area": "E", "dimension": "aptitudes" },
+    { "id": 80, "texto": "¿Te gratificaría el trabajar con niños?", "area": "H", "dimension": "intereses" },
+    { "id": 81, "texto": "¿Harías el diseño de un cartel o afiche para una campaña contra el sida?", "area": "A", "dimension": "intereses" },
+    { "id": 82, "texto": "¿Dirigirías un grupo de teatro independiente?", "area": "A", "dimension": "aptitudes" },
+    { "id": 83, "texto": "¿Enviarías tu curriculum a una empresa automotriz que solicita gerente para su área de producción?", "area": "I", "dimension": "intereses" },
+    { "id": 84, "texto": "¿Participarías en un grupo de defensa internacional dentro de alguna fuerza armada?", "area": "D", "dimension": "intereses" },
+    { "id": 85, "texto": "¿Te costearías tus estudios trabajando en una auditoría -revisión de las cuentas-?", "area": "C", "dimension": "intereses" },
+    { "id": 86, "texto": "¿Eres de los que defiendes causas perdidas?", "area": "H", "dimension": "aptitudes" },
+    { "id": 87, "texto": "¿Ante una emergencia epidémica participarías en una campaña brindando tu ayuda?", "area": "S", "dimension": "intereses" },
+    { "id": 88, "texto": "¿Sabrías responder qué significa ADN o ARN?", "area": "E", "dimension": "intereses" },
+    { "id": 89, "texto": "¿Elegirías una carrera cuyo instrumento de trabajo fuere la utilización de un idioma extranjero?", "area": "H", "dimension": "intereses" },
+    { "id": 90, "texto": "¿Trabajar con objetos, máquinas, te resulta más gratificante que trabajar con personas?", "area": "I", "dimension": "aptitudes" },
+    { "id": 91, "texto": "¿Te resultaría gratificante ser asesor contable en una empresa reconocida?", "area": "C", "dimension": "intereses" },
+    { "id": 92, "texto": "¿Ante un llamado solidario, te ofrecerías para cuidar a un enfermo?", "area": "S", "dimension": "intereses" },
+    { "id": 93, "texto": "¿Te atrae investigar sobre los misterios del universo, por ejemplo los agujeros negros?", "area": "E", "dimension": "intereses" },
+    { "id": 94, "texto": "¿El trabajo individual te resulta más rápido y efectivo que el trabajo grupal?", "area": "E", "dimension": "aptitudes" },
+    { "id": 95, "texto": "¿Dedicarías parte de tu tiempo a ayudar a personas con carencias o necesitadas?", "area": "H", "dimension": "intereses" },
+    { "id": 96, "texto": "¿Cuando eliges tu ropa o decoras un ambiente, tienes en cuenta la combinación de los colores, las telas o el estilo de los muebles?", "area": "A", "dimension": "intereses" },
+    { "id": 97, "texto": "¿Te gustaría trabajar como profesional dirigiendo la construcción de una empresa hidroeléctrica?", "area": "I", "dimension": "intereses" },
+    { "id": 98, "texto": "¿Sabes qué es el PIB? Se trata de un concepto económico. ¿Te gusta este tipo de tema?", "area": "C", "dimension": "intereses" }
+  ],
+
+  "scoring_rules": {
+    "tipo_respuesta": "dicotomica",
+    "valores_respuesta": { "si": 1, "no": 0 },
+    "valor_respuesta_afirmativa": 1,
+    "descripcion_puntuacion": "Por cada pregunta contestada afirmativamente se rodea el número correspondiente en el cuadro de tabulación. Cada número marcado vale un punto.",
+    "metodo_calculo": "Se suman verticalmente los puntos marcados en cada columna (C, H, A, S, I, D, E) por separado para el bloque de Intereses y para el bloque de Aptitudes, y se coloca el resultado debajo de cada columna.",
+    "columnas_resultado": ["C", "H", "A", "S", "I", "D", "E"],
+    "puntaje_maximo_por_area": { "intereses": 10, "aptitudes": 4 },
+    "puntaje_minimo_por_area": { "intereses": 0, "aptitudes": 0 },
+    "regla_determinacion_perfil": {
+      "paso_1": "A cada letra le corresponde un Área, formada por un grupo de estudios afines.",
+      "paso_2": "Considerar las DOS mayores puntuaciones obtenidas: doble subrayado para la mayor puntuación y simple subrayado para la segunda.",
+      "paso_3": "Anotar las dos Áreas con mayor puntuación en orden descendente (1 y 2).",
+      "paso_4": "Buscar en los cuadros de rasgos los intereses y las aptitudes más representativas de cada Área seleccionada.",
+      "paso_5": "Independientemente del test, el evaluado declara sus intereses profesionales y en qué le gustaría trabajar (contraste cualitativo).",
+      "paso_6": "Comprobar con un compañero/a o familiar si el evaluado posee las cualidades que aparecen en el cuadro del Área (validación externa).",
+      "n_areas_perfil": 2,
+      "criterio_orden": "descendente_por_puntaje"
+    },
+    "manejo_empates": {
+      "descripcion": "El instrumento no define un criterio formal de desempate. Ante empate en la segunda posición se recomienda reportar todas las áreas empatadas y resolver mediante la triangulación cualitativa de los pasos 5 y 6.",
+      "estado": "no_especificado_en_el_instrumento"
+    },
+    "interpretacion_complementaria": {
+      "triangulacion": "El resultado del test debe acompañarse de entrevistas y observación; la triangulación de la información refuerza la validez de la orientación vocacional resultante.",
+      "combinacion_instrumentos": "Se recomienda combinar el CHASIDE con tests de personalidad psicométricamente probados para garantizar la eficacia del proceso de orientación.",
+      "advertencia_uso": "El CHASIDE identifica intereses y aptitudes autopercibidos; no constituye por sí solo un diagnóstico ni una decisión vocacional definitiva."
+    }
+  }
+}

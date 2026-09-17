@@ -10,7 +10,8 @@ export default function VocationalReport({
   institution, 
   chasideData, 
   triadicData, 
-  topProfiles 
+  topProfiles,
+  localReportData,
 }) {
   const [datosReporte, setDatosReporte] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -20,6 +21,12 @@ export default function VocationalReport({
   const reporteRef = useRef(null);
 
   useEffect(() => {
+    if (localReportData) {
+      setDatosReporte(localReportData);
+      setCargando(false);
+      return;
+    }
+
     async function obtenerDatos() {
       // Consultamos la tabla de respuestas y "jalamos" automáticamente los datos del estudiante asociado
       const { data, error } = await supabase

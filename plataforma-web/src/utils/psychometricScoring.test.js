@@ -55,15 +55,40 @@ describe('analizarResultadosPsicometricos', () => {
     expect(resultado.triadicRanking[0]).toEqual({ area: 'Emocional', score: 94 });
   });
 
-  it('suma intereses y aptitudes y desempata por aptitud', () => {
+  it('suma intereses y aptitudes y conserva el orden configurado en un empate', () => {
     const resultado = calcularResultadosChaside({
       interests: { C: [8], H: [4], A: [3], S: [2], I: [7], D: [7], E: [1] },
       aptitudes: { C: [7], H: [4], A: [2], S: [1], I: [5], D: [8], E: [2] },
     });
 
-    expect(resultado.topAreas.slice(0, 2)).toEqual([
-      { area: 'D', interestScore: 7, aptitudeScore: 8, totalScore: 15, score: 15 },
+    expect(resultado.topAreas.slice(0, 2).map(({ area, interestScore, aptitudeScore, totalScore, score }) => ({
+      area, interestScore, aptitudeScore, totalScore, score,
+    }))).toEqual([
       { area: 'C', interestScore: 8, aptitudeScore: 7, totalScore: 15, score: 15 },
+      { area: 'D', interestScore: 7, aptitudeScore: 8, totalScore: 15, score: 15 },
+    ]);
+    expect(resultado.topAreas[0].rasgos_intereses).toEqual(['Organización', 'Supervisión', 'Orden', 'Análisis y síntesis', 'Colaboración', 'Cálculo']);
+    expect(resultado.topAreas[0].rasgos_aptitudes).toEqual(['Persuasivo', 'Objetivo', 'Práctico', 'Tolerante', 'Responsable', 'Ambicioso']);
+  });
+
+  it('puntúa respuestas por id usando la matriz del JSON', () => {
+    const answers = Array.from({ length: 98 }, (_, index) => ({
+      questionId: index + 1,
+      answer: 'Sí',
+    }));
+
+    const resultado = calcularResultadosChaside({ answers });
+
+    expect(resultado.results.find(({ area }) => area === 'C')).toMatchObject({
+      interestScore: 10,
+      aptitudeScore: 4,
+      score: 14,
+    });
+    expect(resultado.topAreas.slice(0, 2).map(({ area, interestScore, aptitudeScore }) => ({
+      area, interestScore, aptitudeScore,
+    }))).toEqual([
+      { area: 'C', interestScore: 10, aptitudeScore: 4 },
+      { area: 'H', interestScore: 10, aptitudeScore: 4 },
     ]);
   });
 

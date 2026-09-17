@@ -1,4 +1,8 @@
-export const CHASIDE_AREAS = ['C', 'H', 'A', 'S', 'I', 'D', 'E'];
+import chasideConfig from '../data/chaside_config.json';
+
+const { chaside_areas: chasideAreas, items, scoring_rules: scoringRules } = chasideConfig;
+export const CHASIDE_AREAS = scoringRules.columnas_resultado;
+const TOP_AREAS_LIMIT = scoringRules.regla_determinacion_perfil.n_areas_perfil;
 
 function isBlankAnswer(answer) {
   return answer === null || answer === undefined || answer === '';
@@ -16,20 +20,76 @@ function flattenAnswers(matrix) {
   });
 }
 
-function scoreValue(value) {
-  if (Array.isArray(value)) {
-    return value.reduce((total, answer) => total + (Number(answer) || 0), 0);
-  }
-  if (value && typeof value === 'object') {
-    return Number(value.score ?? value.value ?? 0) || 0;
-  }
-  return Number(value) || 0;
+function isAffirmativeAnswer(answer) {
+  return answer === true
+    || answer === 1
+    || answer === '1'
+    || ['si', 'sí', 'yes', 'true'].includes(String(answer).toLowerCase());
 }
 
-export function validarRespuestasChaside({ interests, aptitudes, intereses } = {}) {
-  const interestAnswers = flattenAnswers(interests ?? intereses);
-  const aptitudeAnswers = flattenAnswers(aptitudes);
-  const answers = [...interestAnswers, ...aptitudeAnswers];
+function getItemAnswer(answer) {
+  if (answer && typeof answer === 'object') return answer.answer ?? answer.score;
+  return answer;
+}
+
+function getAnswerEntries(data) {
+  if (Array.isArray(data?.answers)) {
+    return new Map(data.answers.map((answer) => [Number(answer.questionId), getItemAnswer(answer)]));
+  }
+
+  const entries = new Map();
+  const positions = {};
+  items.forEach((item) => {
+    const block = data?.[item.dimension] ?? data?.[item.dimension === 'intereses' ? 'interests' : item.dimension];
+    const areaAnswers = block?.[item.area];
+    const positionKey = `${item.dimension}:${item.area}`;
+    const position = positions[positionKey] ?? 0;
+    positions[positionKey] = position + 1;
+    entries.set(item.id, Array.isArray(areaAnswers) ? areaAnswers[position] : areaAnswers);
+  });
+  return entries;
+}
+
+function scoreResponses(data) {
+  const answersByItem = getAnswerEntries(data);
+  return items.reduce((scores, item) => {
+    if (isAffirmativeAnswer(answersByItem.get(item.id))) {
+      scores[item.area][item.dimension] += scoringRules.valor_respuesta_afirmativa;
+    }
+    return scores;
+  }, Object.fromEntries(CHASIDE_AREAS.map((area) => [area, { intereses: 0, aptitudes: 0 }])));
+}
+
+function hasItemResponses(data) {
+  if (Array.isArray(data?.answers)) return true;
+
+  const groupedAnswerCount = [data?.interests, data?.intereses, data?.aptitudes]
+    .filter(Boolean)
+    .reduce((total, block) => total + Object.values(block).reduce(
+      (count, values) => count + (Array.isArray(values) ? values.length : 1),
+      0,
+    ), 0);
+  return groupedAnswerCount >= items.length;
+}
+
+function scoreLegacyAggregates(data) {
+  return Object.fromEntries(CHASIDE_AREAS.map((area) => {
+    const interestValue = data?.interests?.[area] ?? 0;
+    const aptitudeValue = data?.aptitudes?.[area] ?? 0;
+    return [area, {
+      intereses: Array.isArray(interestValue) ? interestValue.reduce((total, value) => total + (Number(value) || 0), 0) : Number(interestValue) || 0,
+      aptitudes: Array.isArray(aptitudeValue) ? aptitudeValue.reduce((total, value) => total + (Number(value) || 0), 0) : Number(aptitudeValue) || 0,
+    }];
+  }));
+}
+
+export function validarRespuestasChaside({ interests, aptitudes, intereses, answers: rawAnswers } = {}) {
+  const answers = Array.isArray(rawAnswers)
+    ? rawAnswers.map(getItemAnswer)
+    : [
+      ...flattenAnswers(interests ?? intereses),
+      ...flattenAnswers(aptitudes),
+    ];
   const blankCount = answers.filter(isBlankAnswer).length;
   const negativeCount = answers.filter(isNegativeAnswer).length;
   const totalAnswers = answers.length;
@@ -81,36 +141,36 @@ export function obtenerTopAreasChaside(data, limit = 2) {
     .slice(0, limit);
 }
 
-export function calcularResultadosChaside({ interests, aptitudes, intereses } = {}) {
-  const validacion = validarRespuestasChaside({ interests, aptitudes, intereses });
+export function calcularResultadosChaside({ interests, aptitudes, intereses, answers } = {}) {
+  const responseData = { interests, aptitudes, intereses, answers };
+  const validacion = validarRespuestasChaside(responseData);
   if (!validacion.valid) return { ...validacion, results: [], topAreas: [] };
 
-  const interestMatrix = interests ?? intereses ?? {};
-  const aptitudeMatrix = aptitudes ?? {};
+  const scores = hasItemResponses(responseData)
+    ? scoreResponses({ ...responseData, intereses: intereses ?? interests })
+    : scoreLegacyAggregates({ interests: intereses ?? interests, aptitudes });
   const results = CHASIDE_AREAS.map((area) => {
-    const interestScore = scoreValue(interestMatrix[area]);
-    const aptitudeScore = scoreValue(aptitudeMatrix[area]);
+    const interestScore = scores[area].intereses;
+    const aptitudeScore = scores[area].aptitudes;
+    const areaConfig = chasideAreas[area];
     return {
       area,
       interestScore,
       aptitudeScore,
       totalScore: interestScore + aptitudeScore,
       score: interestScore + aptitudeScore,
+      rasgos_intereses: areaConfig.rasgos_intereses,
+      rasgos_aptitudes: areaConfig.rasgos_aptitudes,
     };
-  }).sort((first, second) => {
-    const totalDifference = second.totalScore - first.totalScore;
-    return totalDifference || second.aptitudeScore - first.aptitudeScore;
-  });
+  }).sort((first, second) => second.totalScore - first.totalScore);
 
-  const hasManualTie = results.length > 1
-    && results[0].totalScore === results[1].totalScore
-    && results[0].aptitudeScore === results[1].aptitudeScore;
+  const hasManualTie = results.length > 1 && results[0].totalScore === results[1].totalScore;
 
   return {
     ...validacion,
     status: hasManualTie ? 'REQUIERE_DESEMPATE_MANUAL' : 'VALID',
     results,
-    topAreas: results.slice(0, 2),
+    topAreas: results.slice(0, TOP_AREAS_LIMIT),
   };
 }
 
