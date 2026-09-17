@@ -1,29 +1,8 @@
 import { useEffect, useState } from 'react';
+import config from '../data/chaside_config.json';
 
 const STORAGE_KEY = 'my-talent-test-chaside-progress';
-const CHASIDE_AREAS = ['C', 'H', 'A', 'S', 'I', 'D', 'E'];
-
-const exampleQuestions = [
-  { id: 1, text: '¿Te interesa investigar cómo funcionan las cosas?', section: 'interests', area: 'C' },
-  { id: 2, text: '¿Te gusta ayudar a otras personas a resolver sus problemas?', section: 'interests', area: 'H' },
-  { id: 3, text: '¿Disfrutas crear o expresar ideas de forma artística?', section: 'interests', area: 'A' },
-  { id: 4, text: '¿Te interesa trabajar en actividades que impliquen servicio a la comunidad?', section: 'interests', area: 'S' },
-  { id: 5, text: '¿Te llaman la atención las actividades relacionadas con tecnología?', section: 'interests', area: 'I' },
-];
-
-export const CHASIDE_QUESTIONS = [
-  ...exampleQuestions,
-  ...Array.from({ length: 93 }, (_, index) => {
-    const questionNumber = index + 6;
-    const zeroBasedIndex = questionNumber - 1;
-    return {
-      id: questionNumber,
-      text: `Pregunta CHASIDE ${questionNumber} (pendiente de completar)`,
-      section: zeroBasedIndex < 49 ? 'interests' : 'aptitudes',
-      area: CHASIDE_AREAS[zeroBasedIndex % CHASIDE_AREAS.length],
-    };
-  }),
-];
+export const CHASIDE_QUESTIONS = config.items;
 
 function readProgress() {
   try {
@@ -40,8 +19,9 @@ function buildJsonbResponses(answers) {
   CHASIDE_QUESTIONS.forEach((question) => {
     const answer = answers[question.id];
     const score = answer === 'Sí' ? 1 : 0;
-    responses[question.section][question.area] ??= [];
-    responses[question.section][question.area].push(score);
+    const section = question.dimension === 'intereses' ? 'interests' : 'aptitudes';
+    responses[section][question.area] ??= [];
+    responses[section][question.area].push(score);
     responses.answers.push({ questionId: question.id, answer, score });
   });
 
@@ -56,10 +36,10 @@ export default function ChasideTest({ onComplete }) {
   );
   const [persistProgress, setPersistProgress] = useState(true);
   const [error, setError] = useState('');
-  const question = CHASIDE_QUESTIONS[currentQuestionIndex];
-  const isLastQuestion = currentQuestionIndex === CHASIDE_QUESTIONS.length - 1;
-  const currentAnswer = answers[question.id];
-  const progressPercent = Math.round(((currentQuestionIndex + 1) / CHASIDE_QUESTIONS.length) * 100);
+  const preguntaActual = CHASIDE_QUESTIONS[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === config.items.length - 1;
+  const currentAnswer = answers[preguntaActual.id];
+  const progressPercent = Math.round(((currentQuestionIndex + 1) / config.items.length) * 100);
 
   useEffect(() => {
     if (!persistProgress) return;
@@ -71,7 +51,7 @@ export default function ChasideTest({ onComplete }) {
   }, [answers, currentQuestionIndex, persistProgress]);
 
   const selectAnswer = (answer) => {
-    setAnswers((current) => ({ ...current, [question.id]: answer }));
+    setAnswers((current) => ({ ...current, [preguntaActual.id]: answer }));
     setPersistProgress(true);
     setError('');
     if (!isLastQuestion) {
@@ -84,7 +64,7 @@ export default function ChasideTest({ onComplete }) {
       setError('Selecciona Sí o No para continuar.');
       return;
     }
-    setCurrentQuestionIndex((current) => Math.min(current + 1, CHASIDE_QUESTIONS.length - 1));
+    setCurrentQuestionIndex((current) => Math.min(current + 1, config.items.length - 1));
   };
 
   const finishTest = () => {
@@ -122,22 +102,22 @@ export default function ChasideTest({ onComplete }) {
 
       <section className="chaside-test__card" aria-labelledby="question-title">
         <div className="chaside-test__progress-row">
-          <span>Pregunta {question.id} de {CHASIDE_QUESTIONS.length}</span>
+          <span>Pregunta {preguntaActual.id} de {config.items.length}</span>
           <span>{progressPercent}% de avance</span>
         </div>
         <div
           className="chaside-test__progress-track"
           role="progressbar"
           aria-valuemin="0"
-          aria-valuemax={CHASIDE_QUESTIONS.length}
-          aria-valuenow={question.id}
+          aria-valuemax={config.items.length}
+          aria-valuenow={preguntaActual.id}
           aria-label={`${progressPercent}% de avance`}
         >
           <div className="chaside-test__progress-fill" style={{ width: `${progressPercent}%` }} />
         </div>
 
-        <p className="chaside-test__area">Área {question.area}</p>
-        <h2 key={question.id} id="question-title">{question.text}</h2>
+        <p className="chaside-test__area">Área {preguntaActual.area}</p>
+        <h2 key={preguntaActual.id} id="question-title">{preguntaActual.texto}</h2>
 
         <div className="chaside-test__answers" role="group" aria-label="Respuesta">
           {['Sí', 'No'].map((answer) => (
