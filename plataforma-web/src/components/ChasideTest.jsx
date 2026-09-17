@@ -30,16 +30,28 @@ function buildJsonbResponses(answers) {
 
 export default function ChasideTest({ onComplete }) {
   const savedProgress = readProgress();
+  const [shuffledQuestions, setShuffledQuestions] = useState(() => [...config.items]);
   const [answers, setAnswers] = useState(savedProgress.answers ?? {});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(
-    Math.min(savedProgress.current_question_index ?? 0, CHASIDE_QUESTIONS.length - 1),
+    Math.min(savedProgress.current_question_index ?? 0, config.items.length - 1),
   );
   const [persistProgress, setPersistProgress] = useState(true);
   const [error, setError] = useState('');
-  const preguntaActual = CHASIDE_QUESTIONS[currentQuestionIndex];
+  const preguntaActual = shuffledQuestions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === config.items.length - 1;
   const currentAnswer = answers[preguntaActual.id];
   const progressPercent = Math.round(((currentQuestionIndex + 1) / config.items.length) * 100);
+
+  useEffect(() => {
+    const questions = [...config.items];
+
+    for (let index = questions.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [questions[index], questions[randomIndex]] = [questions[randomIndex], questions[index]];
+    }
+
+    setShuffledQuestions(questions);
+  }, []);
 
   useEffect(() => {
     if (!persistProgress) return;
@@ -68,9 +80,10 @@ export default function ChasideTest({ onComplete }) {
   };
 
   const finishTest = () => {
-    const unanswered = CHASIDE_QUESTIONS.find(({ id }) => !answers[id]);
+    const unansweredIndex = shuffledQuestions.findIndex(({ id }) => !answers[id]);
+    const unanswered = shuffledQuestions[unansweredIndex];
     if (unanswered) {
-      setCurrentQuestionIndex(unanswered.id - 1);
+      setCurrentQuestionIndex(unansweredIndex);
       setError(`Aún falta responder la pregunta ${unanswered.id}.`);
       return;
     }
@@ -106,17 +119,24 @@ export default function ChasideTest({ onComplete }) {
           <span>{progressPercent}% de avance</span>
         </div>
         <div
-          className="chaside-test__progress-track"
+          className="chaside-test__progress-track flex gap-1"
           role="progressbar"
           aria-valuemin="0"
           aria-valuemax={config.items.length}
-          aria-valuenow={preguntaActual.id}
+          aria-valuenow={currentQuestionIndex + 1}
           aria-label={`${progressPercent}% de avance`}
         >
-          <div className="chaside-test__progress-fill" style={{ width: `${progressPercent}%` }} />
+          {Array.from({ length: 25 }, (_, index) => (
+            <div
+              key={index}
+              className={`h-2 flex-1 ${index < Math.ceil((currentQuestionIndex + 1) / config.items.length * 25)
+                ? 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]'
+                : 'bg-slate-700'}`}
+              aria-hidden="true"
+            />
+          ))}
         </div>
 
-        <p className="chaside-test__area">Área {preguntaActual.area}</p>
         <h2 key={preguntaActual.id} id="question-title">{preguntaActual.texto}</h2>
 
         <div className="chaside-test__answers" role="group" aria-label="Respuesta">
