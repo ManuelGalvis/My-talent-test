@@ -21,7 +21,6 @@
   width: min(760px, 100%);
   margin: 0 auto;
   padding: 64px 24px;
-  color: #243447;
   text-align: left;
 }
 
@@ -32,7 +31,6 @@
 .chaside-test__eyebrow,
 .chaside-test__area {
   margin-bottom: 8px;
-  color: #087f8c;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -41,17 +39,13 @@
 
 .chaside-test__header h1 {
   margin: 0 0 12px;
-  color: #17324d;
   font-size: clamp(2rem, 5vw, 3.4rem);
   letter-spacing: 0;
 }
 
 .chaside-test__card {
   padding: clamp(24px, 5vw, 48px);
-  border: 1px solid #d6e3e8;
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 18px 45px rgba(22, 55, 74, 0.12);
 }
 
 .chaside-test__progress-row,
@@ -64,7 +58,6 @@
 
 .chaside-test__progress-row {
   margin-bottom: 10px;
-  color: #587080;
   font-size: 0.9rem;
 }
 
@@ -74,7 +67,6 @@
   margin-bottom: 52px;
   overflow: hidden;
   border-radius: 999px;
-  background: #dbe8ed;
 }
 
 .chaside-test__progress-fill {
@@ -95,7 +87,6 @@
 .chaside-test__card h2 {
   min-height: 78px;
   margin: 0 0 32px;
-  color: #17324d;
   font-size: clamp(1.4rem, 3vw, 2rem);
   line-height: 1.3;
   animation: chaside-fade-in 200ms ease both;
@@ -130,17 +121,11 @@
 
 .chaside-test__answer {
   padding: 18px;
-  border-color: #c9dbe1 !important;
-  background: #f7fafb;
-  color: #17324d;
-  font-size: 1.1rem;
 }
 
 .chaside-test__answer:hover,
 .chaside-test__answer.is-selected {
-  border-color: #087f8c !important;
-  background: #e5f5f4;
-  color: #05636d;
+  border-color: rgba(255, 255, 255, 0.35) !important;
 }
 
 .chaside-test__answer:active {

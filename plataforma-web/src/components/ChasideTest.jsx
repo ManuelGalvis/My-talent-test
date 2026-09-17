@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import config from '../data/chaside_config.json';
 
 const STORAGE_KEY = 'my-talent-test-chaside-progress';
@@ -106,17 +107,17 @@ export default function ChasideTest({ onComplete }) {
   };
 
   return (
-    <main className="chaside-test">
+    <main className="chaside-test min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white">
       <div className="chaside-test__header">
-        <p className="chaside-test__eyebrow">MyTalent Test</p>
-        <h1>Test vocacional CHASIDE</h1>
-        <p>Responde cada afirmación con sinceridad. Tu avance se guarda automáticamente.</p>
+        <p className="chaside-test__eyebrow text-cyan-300">MyTalent Test</p>
+        <h1 className="text-white">Test vocacional CHASIDE</h1>
+        <p className="text-slate-200">Responde cada afirmación con sinceridad. Tu avance se guarda automáticamente.</p>
       </div>
 
-      <section className="chaside-test__card" aria-labelledby="question-title">
+      <section className="chaside-test__card bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-2xl" aria-labelledby="question-title">
         <div className="chaside-test__progress-row">
-          <span>Pregunta {preguntaActual.id} de {config.items.length}</span>
-          <span>{progressPercent}% de avance</span>
+          <span className="text-slate-200">Pregunta {currentQuestionIndex + 1} de {config.items.length}</span>
+          <span className="text-cyan-300">{progressPercent}% de avance</span>
         </div>
         <div
           className="chaside-test__progress-track flex gap-1"
@@ -137,14 +138,24 @@ export default function ChasideTest({ onComplete }) {
           ))}
         </div>
 
-        <h2 key={preguntaActual.id} id="question-title">{preguntaActual.texto}</h2>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={preguntaActual.id}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
+            <h2 id="question-title" className="text-white">{preguntaActual.texto}</h2>
+          </motion.div>
+        </AnimatePresence>
 
         <div className="chaside-test__answers" role="group" aria-label="Respuesta">
           {['Sí', 'No'].map((answer) => (
             <button
               key={answer}
               type="button"
-              className={`chaside-test__answer ${currentAnswer === answer ? 'is-selected' : ''}`}
+              className={`chaside-test__answer rounded-xl border border-white/10 bg-white/5 py-4 text-xl font-semibold text-white active:scale-95 transition-all duration-200 hover:bg-white/20 ${currentAnswer === answer ? 'is-selected' : ''}`}
               aria-pressed={currentAnswer === answer}
               onClick={() => selectAnswer(answer)}
             >
