@@ -3,30 +3,27 @@ import './App.css';
 import ChasideTest from './components/ChasideTest';
 import VocationalReport from './VocationalReport';
 
-function App() {
+function App({ testApplicationId, studentId, distributorId }) {
   const [testResult, setTestResult] = useState(null);
+  const resolvedTestApplicationId = testApplicationId ?? import.meta.env.VITE_TEST_APPLICATION_ID;
+  const resolvedStudentId = studentId ?? import.meta.env.VITE_STUDENT_ID;
+  const resolvedDistributorId = distributorId ?? import.meta.env.VITE_DISTRIBUTOR_ID;
 
   if (testResult) {
     return (
       <VocationalReport
-        localReportData={{
-          responses: testResult.responses,
-          students: {
-            first_name: 'Estudiante',
-            last_name: 'local',
-            document_type: '',
-            document_number: '',
-            group_name: '',
-          },
-          test_applications: { is_report_allowed: true },
-        }}
-        chasideData={testResult.responses}
+        responseId={testResult.responseId}
       />
     );
   }
 
   return (
-    <ChasideTest onComplete={setTestResult} />
+    <ChasideTest
+    onTestComplete={(responseId) => setTestResult({ responseId })}
+      testApplicationId={resolvedTestApplicationId}
+      studentId={resolvedStudentId}
+      distributorId={resolvedDistributorId}
+    />
   );
 }
 

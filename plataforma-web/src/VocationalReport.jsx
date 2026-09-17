@@ -11,7 +11,7 @@ export default function VocationalReport({
   chasideData, 
   triadicData, 
   topProfiles,
-  localReportData,
+  responseId,
 }) {
   const [datosReporte, setDatosReporte] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -21,13 +21,12 @@ export default function VocationalReport({
   const reporteRef = useRef(null);
 
   useEffect(() => {
-    if (localReportData) {
-      setDatosReporte(localReportData);
-      setCargando(false);
-      return;
-    }
-
     async function obtenerDatos() {
+      if (!responseId) {
+        setCargando(false);
+        return;
+      }
+
       // Consultamos la tabla de respuestas y "jalamos" automáticamente los datos del estudiante asociado
       const { data, error } = await supabase
         .from('student_test_responses')
@@ -36,20 +35,19 @@ export default function VocationalReport({
           students:students!student_test_responses_student_id_fkey (*),
           test_applications (*)
         `)
-        .order('last_saved_at', { ascending: false })
-        .limit(1);
+        .eq('id', responseId)
+        .single();
 
       if (error) {
         console.error("Error al cargar los datos de Supabase:", error);
       } else {
-        console.log("Datos recuperados exitosamente:", data);
-        setDatosReporte(data?.[0] ?? null);
+        setDatosReporte(data ?? null);
       }
       setCargando(false);
     }
 
     obtenerDatos();
-  }, []);
+  }, [responseId]);
   const handleExportPdf = async () => {
     if (!reporteRef.current || exportando) return;
 
