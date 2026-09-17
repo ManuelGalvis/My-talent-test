@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   test: {
     environment: 'node',
+    base: '/My-talent-test/',
     globals: true,
   },
 })
