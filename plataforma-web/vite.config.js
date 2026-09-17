@@ -4,10 +4,10 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/My-talent-test/', // <-- Ahora está en el nivel principal (correcto)
   plugins: [react(), tailwindcss()],
   test: {
     environment: 'node',
-    base: '/My-talent-test/',
     globals: true,
   },
 })
