@@ -108,7 +108,7 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
     setShowSavePrompt(true);
   };
 
-  const saveTest = async () => {
+  const handleSaveData = async () => {
     if (isSaving) return;
 
     if (!testApplicationId || !studentId || !distributorId) {
@@ -116,27 +116,33 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
       return;
     }
 
+    console.log('1. Iniciando guardado...');
     setIsSaving(true);
     setShowSavePrompt(false);
     setError('');
 
     try {
-      const processedResponses = buildJsonbResponses(answers);
+      const respuestasGrupales = buildJsonbResponses(answers);
+      const testData = {
+        test_application_id: testApplicationId,
+        student_id: studentId,
+        distributor_id: distributorId,
+        responses: respuestasGrupales,
+        current_question_index: 98,
+        is_locked: true,
+        submitted_at: new Date().toISOString(),
+      };
+
+      console.log('2. Enviando a Supabase:', testData);
       const { data, error } = await supabase
         .from('student_test_responses')
-        .insert({
-          test_application_id: testApplicationId,
-          student_id: studentId,
-          distributor_id: distributorId,
-          responses: processedResponses,
-          current_question_index: config.items.length - 1,
-          submitted_at: new Date().toISOString(),
-        })
+        .insert([testData])
         .select('id')
         .single();
 
       if (error) throw error;
 
+      console.log('3. Éxito. ID generado:', data.id);
       localStorage.removeItem(STORAGE_KEY);
       setPersistProgress(false);
       setIsSaving(false);
@@ -179,7 +185,7 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
           >
             <h2 id="save-prompt-title" className="text-2xl font-bold text-white">¿Desea guardar las respuestas al TEST CHASIDE?</h2>
             <div className="flex w-full max-w-lg flex-col gap-4 sm:flex-row">
-              <button type="button" className="chaside-test__primary flex-1 rounded-xl px-6 py-4 text-lg font-semibold" onClick={saveTest}>
+              <button type="button" className="chaside-test__primary flex-1 rounded-xl px-6 py-4 text-lg font-semibold" onClick={handleSaveData}>
                 Sí, guardar mis resultados
               </button>
               <button type="button" className="chaside-test__secondary flex-1 rounded-xl border border-white/20 bg-white/10 px-6 py-4 text-lg font-semibold text-white hover:bg-white/20" onClick={() => setShowSavePrompt(false)}>
