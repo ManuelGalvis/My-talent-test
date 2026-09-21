@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">My Talent Test - Logo horizontal</title>
+  <desc id="desc">Logo horizontal con símbolo de brújula MTT y texto My Talent Test sobre fondo transparente.</desc>
+
+  <defs>
+    <linearGradient id="gradBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00E6D2"/>
+      <stop offset="48%" stop-color="#00A9E8"/>
+      <stop offset="100%" stop-color="#0A2F78"/>
+    </linearGradient>
+    <linearGradient id="gradText" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0A2F78"/>
+      <stop offset="100%" stop-color="#0B4D98"/>
+    </linearGradient>
+    <linearGradient id="gradCyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#08D9C4"/>
+      <stop offset="100%" stop-color="#06B8D8"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- SYMBOL -->
+  <g transform="translate(55,48)">
+    <!-- compass ring -->
+    <circle cx="150" cy="150" r="112" fill="none" stroke="url(#gradBlue)" stroke-width="18"/>
+
+    <!-- compass points -->
+    <path d="M150 0 L166 50 L150 42 L134 50 Z" fill="url(#gradBlue)"/>
+    <path d="M300 150 L250 166 L258 150 L250 134 Z" fill="url(#gradBlue)"/>
+    <path d="M150 300 L134 250 L150 258 L166 250 Z" fill="url(#gradBlue)"/>
+    <path d="M0 150 L50 134 L42 150 L50 166 Z" fill="url(#gradBlue)"/>
+
+    <!-- subtle inner compass -->
+    <circle cx="150" cy="150" r="91" fill="none" stroke="#D7EEF5" stroke-width="4"/>
+
+    <!-- MTT monogram -->
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+      <!-- M -->
+      <path d="M62 204 L62 112 L112 166 L160 112 L160 204" stroke="url(#gradBlue)" stroke-width="28"/>
+      <!-- T -->
+      <path d="M136 112 H236 M186 112 V204" stroke="url(#gradBlue)" stroke-width="28"/>
+      <!-- second T integrated -->
+      <path d="M172 112 H248 M214 112 V204" stroke="#0A2F78" stroke-width="24" opacity="0.95"/>
+    </g>
+  </g>
+
+  <!-- WORDMARK -->
+  <g transform="translate(390,0)">
+    <text x="0" y="225"
+          font-family="Poppins, Montserrat, Arial, sans-serif"
+          font-size="98"
+          font-weight="700"
+          letter-spacing="-4"
+          fill="url(#gradText)">My Talent</text>
+    <text x="513" y="225"
+          font-family="Poppins, Montserrat, Arial, sans-serif"
+          font-size="98"
+          font-weight="700"
+          letter-spacing="-4"
+          fill="url(#gradCyan)">Test</text>
+  </g>
+</svg>
