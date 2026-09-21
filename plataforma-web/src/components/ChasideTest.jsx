@@ -111,11 +111,6 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
   const handleSaveData = async () => {
     if (isSaving) return;
 
-    if (!testApplicationId || !studentId || !distributorId) {
-      setError('No se pudo guardar el resultado: faltan los datos de identificación del estudiante.');
-      return;
-    }
-
     console.log('1. Iniciando guardado...');
     setIsSaving(true);
     setShowSavePrompt(false);
@@ -124,9 +119,9 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
     try {
       const respuestasGrupales = buildJsonbResponses(answers);
       const testData = {
-        test_application_id: testApplicationId,
-        student_id: studentId,
-        distributor_id: distributorId,
+        test_application_id: testApplicationId || null,
+        student_id: studentId || null,
+        distributor_id: distributorId || null,
         responses: respuestasGrupales,
         current_question_index: 98,
         is_locked: true,
@@ -202,7 +197,7 @@ export default function ChasideTest({ onTestComplete, testApplicationId, student
             exit={{ opacity: 0 }}
           >
             <div className="chaside-test__header">
-              <p className="chaside-test__eyebrow text-cyan-300">MyTalent Test</p>
+              <p className="chaside-test__eyebrow text-cyan-300">My Talente Test</p>
               <h1 className="text-white">Test vocacional CHASIDE</h1>
               <p className="text-slate-200">Responde cada afirmación con sinceridad. Tu avance se guarda automáticamente.</p>
             </div>
